@@ -25,22 +25,22 @@ int main(int argc, char* argv[])
 	{
 		switch (input[i] - 42)
 		{
-			case INMULTIRE:
+            case INMULTIRE:
                 idx = 2;
                 x.p1 = 3;
                 x.p2 = 3;
                 break;
-			case SUMA:
+            case SUMA:
                 idx = 0;
                 x.p1 = 7;
                 x.p2 = 5;
                 break;
-			case DIFERENTA:
+            case DIFERENTA:
                 idx = 1;
                 x.p1 = 10;
                 x.p2 = 1;
                 break;
-			case IMPARTIRE:
+            case IMPARTIRE:
                 idx = 3;
                 x.p1 = 8;
                 x.p2 = 4;
