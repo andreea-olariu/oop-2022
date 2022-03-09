@@ -1,0 +1,77 @@
+Liste de initializare: {}
+
+int x[3] = { 1 } => x = [1 0 0] -> se completeaza automat cu valoarea default 
+int x = 10 || int x = {10} || int x(10)   
+
+Constructori:
+
+Nu e obligatoriu, o clasa poate sa nu aiba
+Pot exista mai multi (method overloading)
+Daca clasa are un membru de tip referinta / const, atunci trebuie initializat in constructor (daca exista)
+Default Constructor = constructor fara parametri
+
+Date::Date() : x(10) 
+{ 
+}
+
+-> x este un int si int ul are un fel de "constructor" prin care dai valoarea pe care vrei sa o asignezi // codul scris e in loc de 
+
+Date::Date()
+{
+	x = 10;
+}, x fiind o data membru a clasei Date
+
+-- functioneaza analog cand am un obiect al altei clase ca data membru
+-- : desemneaza ca e un constructor al unei date membru
+-- fiecare constructor (de la method overloading) trebuie sa aiba un constructor pt clasele membru 
+
+
+Date membru const / referinte nu pot ramane neinitializate in constructor
+Nu trebuie sa apara in antet daca doar se declara constructorul ceilalti constructori ai datelor membru
+Constantele / referintele ca date membru trebuie neaparat asignate intr-un contructor sau direct cand sunt declarate
+
+!! Cand sunt declarate si i se asigneaza valoare, daca e din nou asignata in constructor atunci se suprascrie, CHIAR DACA ESTE CONST / REFERINTA si e fucked up 
+
+Delegarea de la un constructor la altul - pot apela o alta varianta de constructor pt o clasa dintr-un alt constructor pt aceeasi clasa;
+-- nu pot sa am un constructor pt o alta dara membru daca am o delegare
+-- dar se poate initializa in corpul constructorului
+
+Se poate apela constructorul prin utilizarea listelor de initializare  {}
+	Data d1 {}; || Data d1 = {}; || Data d1();
+
+Value types:
+-- glvalue
+   	~ adresa de memorie pe care poti face operatii 
+-- prvalue
+	~ constante, a++ / a-- | valoarea in sine b   
+-- xvalue
+	~ obiect temporar; exista doar cand se executa
+-- lvalue
+-- rvalue
+
+Copy constructor
+ -- assignezi o instanta cu o alta instanta a clasei si se copiaza si apelul de constructor  
+
+Move constructor
+-- folosesti ca sa nu ai doua copii (asa se genereaza la copy constructor la return )
+-- && inaintea variabilei 
+-- doar pt xvalues
+-- mutarea e "manuala" 
+ 
+Daca d = xvalue, pot face un move constructor cu && ca sa scap de xvalue gen sa nu fie 2 locatii de memorie cu aceleasi date
+Daca d = d1, d1 glvalue, atunci e copy constructor 
+
+
+ Singleton = o clasa cu o singura instanta (cu static instance ) 
+
+-- ca sa nu permit cuiva sa faca o instanta, pot face constructorul privat, dar as putea crea in cadrul clasei friend dintr-o clasa friend
+
+Constructor = delete => eroare
+
+explicit constructor -> nu ma lasa sa folosesc liste de initializare, ci trebuie sa respecte exact formatul constructorului
+
+
+
+
+
+
