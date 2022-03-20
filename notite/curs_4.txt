@@ -1,0 +1,113 @@
+Destructor: 
+	~numeClasa();
+	- nu are parametri
+	- se apeleaza cand obiectul nu e necesar
+	- putem apela cand vrem sa eliberam memoria
+	- poate fi privat / public (dar daca e privat nu poate fi apelat by default)
+	- SE APELEAZA CAND SE IESE DIN SCOPE
+
+Pentru o clasa in care exista date membru cu destructor, se apeleaza in ordine inversa a declararii datelor membre. (~~FIFO)
+Daca nu exista destructor pentru clasa mare, se creaza automat  destructor in care se apeleaza destructorii mai mici.
+
+
+!!
+
+Doar pt obiecte:
+
+delete d; -> pt pointeri 
+delete [] d; -> pt liste de pointeri	
+
+!!
+ 
+----------------------------------------------------------
+
+OPERATORI
+
+In C++ se pot defini operatori pt obiectele dintr-o clasa. ~~un fel de metode
+keyword: operator
+
+Ex: int Integer::operator+();
+
+Integer n1(100);
+Integer n2(200);
+
+int x = n1 + n2; <=> int x = n1.operator+(n2);   
+
+ 
+	- !!SE RECOMANDA SA FIE CA FUNCTII FRIEND!!
+	- Tipul de return al functiei poate sa difere.
+	- La operatori se aplica !--method overloading--!.
+	- Conteaza ordinea. 
+	- Se poate folosi atat ca metoda a functiei, cat si ca functie friend.
+	- =, [], * -> nu suporta friend, DAR += ...etc suporta friend 
+	- Putem defini un operator si ca functie globala, dar trebuie sa aiba un parametru obiect / enum.
+
+!! Reminder: friend keyword 
+
+Post-incrementare : un parametru int
+Pre-incrementare : niciun parametru
+
+Operatori:
+	- new
+	- new []
+	- delete
+	- delete [] 
+
+Placement new : definiri diferite de new 
+!! -- new -- echivalent de delete -- !!
+
+
+Operatori de cast :
+	- nu pot fi friends
+	- pot fi expliciti
+	
+Operator de indexare: 
+	- []
+	- poate avea doar un singur parametru, DAR acel parametru poate fi orice (number, string ..) 
+	- poate exista si method overloading
+
+Operator de apel de functie:
+	- ()
+	- seamana cu indexarea
+	- poate avea mai multi parametri
+
+Operatorul de acces / apel de pointer: 
+	- ->
+	- merge doar pe obiecte, nu pe pointeri
+	- e doar metoda, nu si functie friend
+ 
+Operator de lista:
+	- ,
+	- se recomanda friend + method overloading pt toate scenariile posibile   
+
+----------------------------------------------------------
+
+VALOARE -> copie 
+REFERINTA -> se copie pe stiva adresa CU LEA IN ASM
+POINTER -> se copie pe stiva adresa CU LEA IN ASM
+ 
+size_t -> dimensiunea pentru obiectul de alocat 
+
+Move constructor folosit pentru a nu aloca de mai multe ori memorie pt aceeasi variabila, ci de a muta pointerul direct
+
+NU RETURNAM O REFERINTA / UN POINTER DE PE STIVA UNEI METODE  
+
+----------------------------------------------------------
+
+Copierea obiectelor se face by default cu memcpy daca nu exista constructor de copiere
+La return se returneaza o copie
+
+= | copy constructor | memcpy  
+
+
+
+
+
+
+
+
+
+
+
+
+
