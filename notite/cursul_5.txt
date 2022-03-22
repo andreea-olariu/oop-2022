@@ -1,0 +1,172 @@
+Mostenirea : proprietati C1 --> proprietati C2
+
+Cum se face mostenirea?
+
+class New : 	<access_modifier> <base_class_1>,
+		<access_modifier> <base_class_2>, 
+		<access_modifier> <base_class_3>
+		{};
+, access_modifier = {public / private / protected | by default e private}
+
+New = clasa "derivata" din clasele base_class_1, base_class_2, base_class_3 .
+
+Daca access_modifier = public => nu pot accesa din clasa derivata proprietati private
+ale clasei base
+
+Daca access_modifier = protected => pot accesa din clasa derivata proprietati private
+ale clasei base ----- e echivalent cu public in contextul clasei derivate
+		      dar echivalent cu private in alte contexte
+
+-------------------------------------------------------------------------------
+
+ACCESS MODIFIERS pentru clase de tip base 
+	-  public : in clasa derivata toate datele de base isi pastreaza access modifierul	
+		    adica : daca ceva era public in base, ramane public si in derivata
+			    daca ceva era private in base, ramane private si in derivata
+	-  private : toate din base au scope-ul private in clasa derivata
+	-  public : private-ul ramane private, iar protected si public se transforma in private
+
+
+--------------------------------------------------------------------------------
+
+Constructorul se apeleaza pt clasa base mai intai, iar destructorul pt clasa derivata mai intai
+
+Basically, se apeleaza constructorii claselor base in ordine, apoi constructorul clasei
+in care ma aflu acum, iar destructorii se apeleaza in ordine inversa apelarii constructorilor
+
+Daca clasa derivata contine data membru, se apeleaza constructorii pt datele membru mai intai
+
+Oricum am pune ordinea constructorilor in apelul din constructorul clasei derivate, ei tot
+se apeleaza in ordinea descrisa mai sus
+
+--------------------------------------------------------------------------------
+
+struct se comporta ca un class in C++!!! cu exceptia ca by default e totul public spre
+deosebire de class unde defaultul este private
+
+--------------------------------------------------------------------------------
+
+VIRTUAL METHODS: 
+
+	Daca exista o metoda cu acelasi nume in clasa derivata si in clasa base, se cauta
+cea mai "apropiata" (din clasa derivata mai intai) care sa se apeleze
+	Daca : 
+		class A {.. SetX() ..}
+		class B {.. SetX() ..}
+	B b;
+	A* a = &b;
+	a->SetX();
+	
+	==> se apeleaza SetX() din A, pt ca a este un pointer catre tipul A; 
+
+KEYWORD : virtual = face ca metoda sa fie parte din clasa | poate fi overwritten intr-o clasa
+		    derivata DOAR DACA are parametrii diferiti cea din clasa derivata, altfel
+		    clasa mea derivata are 2 metode cu acelasi nume dar parametri diferiti
+		    (method overloading)
+		    
+		    - good practice: cand avem intentia sa dam override putem adauga keywordul
+		    "override" care nu face nimic neaparat dar ii aratam compilatorului intentia
+	            + practica de clean coding 
+
+	            - keywordul "final" arata ca functia NU POATE fi overwritten
+			- inclusiv clasa poate fi "final", adica nu se poate deriva din clasa respectiva
+
+POLIMORFISM : exista mai multe metode in clase derivate cu acelasi nume 
+
+!!!! Cand alocam memorie, aceasta se aloca doar daca nu e deja alocata !!!!
+
+Figure *f[2];
+f[0] = new Square();
+f[1] = new Circle(); 
+----> se apeleaza de 2 ori destructorul de la Figure pentru ca in moment in care dau new
+Square() sau new Circle(), actually, nu se aloca memorie => cand eliberez memoria nu se apeleaza
+destructorii lor, ci ai lui Figure
+----> daca vrem sa aloce memorie si new Square() sau new Circle(), trebuie sa punem la
+destructorul lui Figure keywordul virtual
+
+------------------------------------------------------------------------------
+
+Keywordul virtual forteaza compilatorul sa adauge in clasa un pointer numit vfptr unde
+se gaseste o lista cu adrese cu functiile din metoda 
+vfptr e prima data memebru a obiectului respectiv si e primul lucru setat in asm
+
+Putem schimba vfptr (fiind un pointer) -- sa pointeze catre alt vfptr
+Dar el se reseteaza de fiecare data cand se apeleaza un constructor 
+
+
+------------------------------------------------------------------------------
+
+Covarianti 
+
+se poate returna intr-o functie derivata un alt tip al virtual function cu conditia ca
+acel tip sa fie derivat din clasa mea de baza
+
+------------------------------------------------------------------------------
+
+Clase abstracte
+
+Functie virtuala pura - nu are cod atasat si punem: 
+virtual void function() = 0;  ((( clasa respectiva se numeste clasa abstracta care poate
+avea si alt tip de metode and stuff  )))
+==> o clasa derivata trebuie sa aiba o functie cu acelasi nume, altfel un obiect al clasei
+de baza nu poate fi instantiat, poate fi instantiat doar un obiect al clasei derivate care
+pe deasupra are si metoda respectiva =0. || in schimb se pot face pointeri de tip clasa baza
+ 
+
+------------------------------------------------------------------------------
+
+Alinierea memoriei
+
+class A {
+	int a1, a2;
+};
+
+class B : public A {
+	int b1, b2;
+};
+
+class C : public A, public B {
+	int c1, c2;
+};
+
+Alinierea memoriei pt C:
+
+	A : a1
+	    a2
+	B : B::A::a1
+	    B::A::a2
+	    b1
+	    b2
+	c1
+	c2	 
+	
+Apare data membru a1 in clasa C de 2 ori => ambiguitate
+
+Derivare virtuala pentru a rezolva problema si in total de a crea un singur a1 si un singur a2
+
+
+class A {
+	int a1, a2;
+};
+
+class B : public virtual A {
+	int b1, b2;
+};
+
+class C : public virtual A, public B {
+	int c1, c2;
+};
+
+
+
+De intrebat: 
+	- polimorfism
+
+
+
+
+
+
+
+
+
