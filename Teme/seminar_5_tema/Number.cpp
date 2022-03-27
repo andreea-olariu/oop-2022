@@ -9,6 +9,28 @@ int stringToNum(char * string, int stringBase) {
     int power = pow(stringBase, len);
     for(int i = 0; string[i] != '\0'; i++) {
         int digit = string[i] - '0';
+        switch(string[i]) {
+            case 'A':
+                digit = 10;
+                break;
+            case 'B':
+                digit = 11;
+                break;
+            case 'C':
+                digit = 12;
+                break;
+            case 'D':
+                digit = 13;
+                break;
+            case 'E':
+                digit = 14;
+                break;
+            case 'F':
+                digit = 15;
+                break;
+            default:
+                break;
+        }
         ret += digit * power;
         power /= stringBase;
     }
@@ -60,17 +82,8 @@ Number::Number(const char *_value, int _base) {
     memcpy(value, _value, strlen(_value)  + 1);
     numericalValueBase10 = stringToNum(value, base);
 }
-
-
-Number::Number(char * string) {
-    value = new char[strlen(string)];
-    memcpy(value, string, strlen(string) + 1);
-    base = 10;
-    numericalValueBase10 = stringToNum(value, base);
-}
-
-
 Number::Number(int x) {
+    printf("hello constuctor\n");
     base = 10;
     numericalValueBase10 = x;
     value = new char[log2(x) / log2(base)];
@@ -212,8 +225,25 @@ Number::Number(Number &&N) {
     delete N.value;
     value = tmp;
     N.base = 0;
-    N.numericalValueBase10 = 10;
-    printf("Number");
+    N.numericalValueBase10 = 0;
 }
 
+Number& Number::operator=(char * string) {
+    delete value;
+    value = new char[strlen(string)];
+    memcpy(value, string, strlen(string) + 1);
+    numericalValueBase10 = stringToNum(value, base);
+    return *this;
+}
 
+Number &Number::operator=(int x) {
+    printf("hello operator\n");
+    numericalValueBase10 = x;
+    if(value != nullptr) {
+        delete value;
+    }
+    value = new char[log2(x) / log2(base)];
+    char *res = Num10ToString(x, base);
+    memcpy(value, res, strlen(res) + 1);
+    return *this;
+}

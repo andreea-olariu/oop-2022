@@ -11,7 +11,6 @@ public:
     Number(Number&&);
     Number(int);
     Number(int x, int _base);
-    Number(char *);
     ~Number();
 
     void SwitchBase(int newBase);
@@ -28,6 +27,8 @@ public:
     bool operator<=(const Number&);
     bool operator==(const Number&);
     Number& operator=(const Number&);
+    Number& operator=(char*);
+    Number& operator=(int);
     friend bool operator*=(Number&, const Number&);
     friend bool operator+=(Number&, const Number&);
     friend bool operator-=(Number&, const Number&);
