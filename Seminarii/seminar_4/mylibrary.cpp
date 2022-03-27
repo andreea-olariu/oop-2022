@@ -7,8 +7,8 @@ MyLibrary::~MyLibrary() {
 
 
 MyLibrary::MyLibrary(const MyLibrary & lib) : output_stream(lib.output_stream){
-    books_count = lib.books_count;
-    this->books = new int[lib.books_count];
+    this->books_count = lib.books_count;
+    this->books = new int[this->books_count];
     for(int i = 0; i < books_count; i++) {
         books[i] = lib.books[i];
     }
