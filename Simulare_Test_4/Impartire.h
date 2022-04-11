@@ -1,0 +1,10 @@
+#ifndef SIMULARE_TEST_4_IMPARTIRE_H
+#define SIMULARE_TEST_4_IMPARTIRE_H
+
+
+class Impartire {
+
+};
+
+
+#endif //SIMULARE_TEST_4_IMPARTIRE_H

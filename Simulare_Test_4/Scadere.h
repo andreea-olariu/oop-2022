@@ -1,0 +1,10 @@
+#ifndef SIMULARE_TEST_4_SCADERE_H
+#define SIMULARE_TEST_4_SCADERE_H
+
+
+class Scadere {
+
+};
+
+
+#endif //SIMULARE_TEST_4_SCADERE_H

@@ -1,0 +1,10 @@
+#ifndef SIMULARE_TEST_4_CALCULATOR_H
+#define SIMULARE_TEST_4_CALCULATOR_H
+
+
+class Calculator {
+
+};
+
+
+#endif //SIMULARE_TEST_4_CALCULATOR_H

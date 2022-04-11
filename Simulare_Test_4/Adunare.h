@@ -1,0 +1,10 @@
+#ifndef SIMULARE_TEST_4_ADUNARE_H
+#define SIMULARE_TEST_4_ADUNARE_H
+
+
+class Adunare {
+
+};
+
+
+#endif //SIMULARE_TEST_4_ADUNARE_H

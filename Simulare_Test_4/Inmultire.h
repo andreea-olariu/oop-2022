@@ -1,0 +1,10 @@
+#ifndef SIMULARE_TEST_4_INMULTIRE_H
+#define SIMULARE_TEST_4_INMULTIRE_H
+
+
+class Inmultire {
+
+};
+
+
+#endif //SIMULARE_TEST_4_INMULTIRE_H
