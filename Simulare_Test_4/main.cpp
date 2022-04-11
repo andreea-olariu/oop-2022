@@ -1,4 +1,9 @@
 #include <iostream>
+#include "Calculator.h"
+#include "Adunare.h"
+#include "Scadere.h"
+#include "Impartire.h"
+#include "Inmultire.h"
 
 int main()
 {

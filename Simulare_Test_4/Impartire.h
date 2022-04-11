@@ -1,9 +1,12 @@
 #ifndef SIMULARE_TEST_4_IMPARTIRE_H
 #define SIMULARE_TEST_4_IMPARTIRE_H
 
+#include "Operatie.h"
 
-class Impartire {
-
+class Impartire : public Operatie{
+public:
+    Impartire();
+    void printResult(int, int);
 };
 
 
