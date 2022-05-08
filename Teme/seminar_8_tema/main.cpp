@@ -4,10 +4,12 @@
 #include <map>
 #include <queue>
 
+#define freq_priority_queue  std::priority_queue<std::pair<std::string, int>, std::vector<std::pair<std::string, int>>, CompareWords>
+
 std::string lowerCase(std::string string) {
-    for(std::string::iterator it = string.begin(); it != string.end(); it++) {
-        if(*it >= 'A' && *it <= 'Z') {
-            *it = *it - 'A' +  'a';
+    for(auto& ch : string) {
+        if(ch >= 'A' && ch <= 'Z') {
+            ch = ch - 'A' +  'a';
         }
     }
     return string;
@@ -34,17 +36,18 @@ int main() {
     std::string separators = " ,?!.";
     std::map<std::string, int> words;
 
-    int pos1 = 0, len;
-    for(std::string::iterator it = sentence.begin(); it != sentence.end(); it++) {
-        for(std::string::iterator it2 = separators.begin(); it2 != separators.end(); it2++) {
-            if(*it == *it2) {
-                len = it - sentence.begin() - pos1;
+    int pos1 = 0, len, i = 0;
+    for(auto& ch1 : sentence) {
+        for(auto& ch2 : separators) {
+            if(ch1 == ch2) {
+                len = i - pos1;
                 std::string word = sentence.substr(pos1, len);
                 word = lowerCase(word);
                 if(words.find(word) == words.end() && len != 0) {
                     std::pair<std::string, int> newWord;
-                    newWord.first = word;
-                    newWord.second = 1;
+                    auto& [name, freq] = newWord;
+                    name = word;
+                    freq = 1;
                     words.insert(newWord);
                 } else {
                     words.find(word)->second++;
@@ -53,17 +56,16 @@ int main() {
                 break;
             }
         }
+        i++;
     }
-//    for(std::map<std::string, int>::iterator it = words.begin(); it != words.end(); it++) {
-//        std::cout << it->first << ": " << it->second << std::endl;
-//    }
 
-    std::priority_queue<std::pair<std::string, int>, std::vector<std::pair<std::string, int>>, CompareWords> sortedWords;
-    for(std::map<std::string, int>::iterator it = words.begin(); it != words.end(); it++) {
-        sortedWords.push(*it);
+    freq_priority_queue sortedWords;
+    for(auto& word : words) {
+        sortedWords.push(word);
     }
     while(!sortedWords.empty()) {
-        std::cout << sortedWords.top().first << " => " << sortedWords.top().second << '\n';
+        auto& [name, freq] = sortedWords.top();
+        std::cout << name << " => " << freq << '\n';
         sortedWords.pop();
     }
     return 0;
