@@ -68,5 +68,6 @@ int main() {
         std::cout << name << " => " << freq << '\n';
         sortedWords.pop();
     }
+
     return 0;
 }
